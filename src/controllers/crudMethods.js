@@ -24,7 +24,7 @@ const postMethod = async (req, res, query) => {
         sendMessage(res, 500, '<h1>Incorrect adress, dont use person id</h1>');
     } else if (!query.id && validateBody(body)){
         const result = await postItem(body);
-        sendMessage(res, 200, result);
+        sendMessage(res, 201, result);
     } else {
         sendMessage(res, 400, '<h1>Incorrect required filds(name, age, hobbies)</h1>');
     }

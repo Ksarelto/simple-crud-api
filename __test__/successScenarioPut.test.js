@@ -57,7 +57,7 @@ describe('success scenarios', function() {
   });
   test('responds with json', async () => {
     const responseOne = await request(server).post('/person').send(newFirstPerson);
-    expect(responseOne.status).toBe(200);
+    expect(responseOne.status).toBe(201);
     const responseTwo = await request(server).post('/person').send(newSecondPerson);
     expect(responseTwo.status).toBe(200);
     const response = await request(server).get(`/person`);

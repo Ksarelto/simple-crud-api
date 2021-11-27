@@ -28,11 +28,11 @@ describe('success scenarios os requests two', () => {
   })
   test('should add some new persons', async () => {
     const responseOne = await request(server).post('/person').send(newFirstPerson);
-    expect(responseOne.status).toBe(200);
+    expect(responseOne.status).toBe(201);
     const responseTwo = await request(server).post('/person').send(newSecondPerson);
-    expect(responseTwo.status).toBe(200);
+    expect(responseTwo.status).toBe(201);
     const responseThree = await request(server).post('/person').send(newThirdPerson);
-    expect(responseThree.status).toBe(200);
+    expect(responseThree.status).toBe(201);
   })
   test('should get all persons', async () => {
     const response = await request(server).get('/person');

@@ -27,7 +27,7 @@ describe('success scenario requests', function() {
     const response = await request(server).post('/person').send(newPerson);
     const createdPerson = JSON.parse(response.text)[0];
     expect(createdPerson).toEqual(newPerson);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
   test('should get created person', async () => {
     const id = db.person[0].id;
