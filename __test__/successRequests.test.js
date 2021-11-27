@@ -51,7 +51,7 @@ describe('success scenario requests', function() {
     expect(deletedPerson).toEqual(beforeDeletingPerson);
     expect(response.status).toBe(200);
     const afterDeletResponse = await request(server).get(`/person/${id}`);
-    expect(JSON.parse(afterDeletResponse.text)).toBe('<h1>Page not found</h1>');
+    expect(JSON.parse(afterDeletResponse.text)).toBe('Person with such id is not exist');
     expect(afterDeletResponse.status).toBe(404);
   });
 });

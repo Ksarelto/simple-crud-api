@@ -15,7 +15,7 @@ const newFirstPerson = {
 }
 
 const newSecondPerson = {
-  name: 'Romel',
+  name: 'Test',
   age: 14,
   hobbies: ['Jump']
 }
@@ -59,7 +59,7 @@ describe('success scenarios', function() {
     const responseOne = await request(server).post('/person').send(newFirstPerson);
     expect(responseOne.status).toBe(201);
     const responseTwo = await request(server).post('/person').send(newSecondPerson);
-    expect(responseTwo.status).toBe(200);
+    expect(responseTwo.status).toBe(201);
     const response = await request(server).get(`/person`);
     expect(JSON.parse(response.text).length).toBe(4);
     expect(response.status).toBe(200);
