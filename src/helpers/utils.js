@@ -1,22 +1,19 @@
-const { headers } = require('./constants.js');
+const { headers, errorCodes, errorMessages } = require('./constants.js');
 
 const getRequestBody = (req, res) => {
   return new Promise((resolve, reject) => {
-      try{
         let data = '';
         req.on('data', (chunk) => {
             data += chunk;
         });
-        req.on('end', () => {
-            if(data === '') {
-                resolve(null);
-            } else {
+        req.on('end', (err) => {
+            try{
                 resolve(JSON.parse(data));
+            } catch(err){
+                res.writeHead(errorCodes.internalError, {...headers});
+                res.end(errorMessages.incorrectBody);
             }
         })
-      } catch(err) {
-        reject(err);
-      }
   })
 }
 
