@@ -1,6 +1,7 @@
 const http = require('http');
 const checkUrl = require('./helpers/checkUrl.js');
 const { getMethod, postMethod, putMethod, deleteMethod } = require('./controllers/crudMethods.js');
+const { errorCodes, errorMessages } = require('./helpers/constants.js');
 require('dotenv').config();
 
 const PORT = process.env.PORT;
@@ -23,17 +24,17 @@ const server = http.createServer((req, res) => {
                 deleteMethod(req, res, urlRest);
                 break;
             default:
-                res.writeHead(500, { 'Content-Type': 'text/plain'});
-                res.end('Such method is not supported');
+                res.writeHead(errorCodes.internalError, { 'Content-Type': 'text/plain'});
+                res.end(errorMessages.notSupported);
         }
     } else {
-        res.writeHead(404, { 'Content-Type': 'text/html'});
-        res.end('Page is not found');
+        res.writeHead(errorCodes.notFound, { 'Content-Type': 'text/html'});
+        res.end(errorMessages.notFound);
     }
 
     req.on('error', () => {
-        res.writeHead(500, { 'Content-Type': 'text/html'});
-        res.end('<h1>Internal error on server</h1>');
+        res.writeHead(errorCodes.internalError, { 'Content-Type': 'text/html'});
+        res.end(errorMessages.internError);
     });
 });
 

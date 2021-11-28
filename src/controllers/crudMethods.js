@@ -1,73 +1,68 @@
 const { postItem, putItem, deleteItem, getAll, getOne } = require('../db_methods/dbMethods.js');
 const { getRequestBody, validateID, validateBody, sendMessage } = require('../helpers/utils.js')
+const { errorCodes, errorMessages } = require('../helpers/constants.js');
 
 const getMethod = (req, res, query) => {
     const isValid = query.id === undefined ? true : validateID(query.id);
 
     if(!isValid) {
-        sendMessage(res, 400, 'Invalid person id');
+        sendMessage(res, errorCodes.invalidId, errorMessages.invalid);
         return;
     }
 
     const answer = query.id ? getOne(query.id) : getAll();
 
     if(!answer) {
-        sendMessage(res, 404, 'Person with such id is not exist');
+        sendMessage(res, errorCodes.notFound, errorMessages.notExist);
         return;
     }
-    sendMessage(res, 200, answer);
+    sendMessage(res, errorCodes.successCode, answer);
 }
 
 const postMethod = async (req, res, query) => {
-    const body = await getRequestBody(req);
+    const body = await getRequestBody(req, res);
     if (query.id || query.id === '') {
-        sendMessage(res, 500, 'Incorrect adress, dont use person id');
-    } else if (!body){
-        sendMessage(res, 500, 'There is no request body');
-    }else if (!query.id && validateBody(body)){
+        sendMessage(res, errorCodes.internalError, errorMessages.incorrectAdress);
+    } else if (!query.id && validateBody(body)){
         const result = await postItem(body);
-        sendMessage(res, 201, result);
+        sendMessage(res, errorCodes.successCreatePerson, result);
     } else {
-        sendMessage(res, 400, 'Incorrect required filds(name, age, hobbies)');
+        sendMessage(res, errorCodes.invalidId, errorMessages.incorrectFields);
     }
 }
 
 const putMethod = async (req, res, query) => {
-    const body = await getRequestBody(req);
-    if(!body) {
-        sendMessage(res, 500, 'There is no request body');
-        return;
-    };
+    const body = await getRequestBody(req, res);
     const isValidId = validateID(query.id);
     const isValidBody = validateBody(body);
     if(!isValidId) {
-        sendMessage(res, 400, 'Invalid person id');
+        sendMessage(res, errorCodes.invalidId, errorMessages.invalid);
         return;
     }
     if(!isValidBody) {
-        sendMessage(res, 400, 'Incorrect required filds(name, age, hobbies)');
+        sendMessage(res, errorCodes.invalidId, errorMessages.incorrectFields);
         return;
     }
     const result = await putItem(query.id, body);
     if(!result) {
-        sendMessage(res, 404, 'Person with such id is not exist');
+        sendMessage(res, errorCodes.notFound, errorMessages.notExist);
         return;
     }
-    sendMessage(res, 200, result);
+    sendMessage(res, errorCodes.successCode, result);
 }
 
 const deleteMethod = async (req, res, query) => {
     const isValidId = validateID(query.id);
     if(!isValidId) {
-        sendMessage(res, 400, 'Invalid person id');
+        sendMessage(res, errorCodes.invalidId, errorMessages.invalid);
         return;
     }
     const result = await deleteItem(query.id);
     if(!result) {
-        sendMessage(res, 404, 'Person with such id is not exist');
+        sendMessage(res, errorCodes.notFound, errorMessages.notExist);
         return;
     }
-    sendMessage(res, 200, result);
+    sendMessage(res, errorCodes.successCode, result);
 }
 
 module.exports = {
