@@ -56,10 +56,16 @@ describe('error scenarios', () => {
     expect(JSON.parse(response.text)).toBe('Incorrect required filds(name, age, hobbies)');
     expect(response.status).toBe(400);
   });
-  test('should throw error because empty body', async () => {
-    const response = await request(server).post('/person');
-    expect(JSON.parse(response.text)).toBe('There is no request body');
-    expect(response.status).toBe(500);
+  test('should throw error because incorrect require fields', async () => {
+    const responseName = await request(server).post('/person').send({name: 32, age: "12", hobbies: []});
+    expect(JSON.parse(responseName.text)).toBe('Incorrect required filds(name, age, hobbies)');
+    expect(responseName.status).toBe(400);
+    const responseAge = await request(server).post('/person').send({name: "test", age: "12", hobbies: []});
+    expect(JSON.parse(responseAge.text)).toBe('Incorrect required filds(name, age, hobbies)');
+    expect(responseAge.status).toBe(400);
+    const responseHobbies = await request(server).post('/person').send({name: "test", age: "12", hobbies: [1,2,3]});
+    expect(JSON.parse(responseHobbies.text)).toBe('Incorrect required filds(name, age, hobbies)');
+    expect(responseHobbies.status).toBe(400);
   });
   test('should throw error because incorrect id to put method', async () => {
     const response = await request(server).put('/person/123').send(newPerson);
