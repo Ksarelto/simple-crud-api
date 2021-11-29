@@ -8,7 +8,7 @@ It is an application, that create a server that get requsts and return responses
 2. Open the folder in yout IDE
 3. In command line run command "npm install" to install all dependencies.
 4. Create .env file and add variable "PORT=3000"
-5. The application is ready to work
+5. The application is ready to run
 
 ## How to run application
 
@@ -16,6 +16,12 @@ There are some modes of work.
 
 1. If you want to run application in development mode you need to entre in command line "npm run start:dev".
 2. If you want to run application in production mode you need to entre in command line "npm run start:prod".
+3. application is ready for work.
+
+## How to work with server
+
+1. You need to use some application for testing API like "Postman".
+2. In "Postman" you should send requsts to "localhost:3000" and you will get responses.
 
 ## How to run tests
 
