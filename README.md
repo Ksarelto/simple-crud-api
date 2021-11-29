@@ -26,7 +26,7 @@ There are some modes of work.
 
 1. If you want to run application in development mode you need to entre in command line "npm run start:dev".
 2. If you want to run application in production mode you need to entre in command line "npm run start:prod".
-3. application is ready for work.
+3. Application is ready for work.
 
 ## How to work with server
 
