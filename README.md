@@ -4,7 +4,7 @@ It is an application, that create a server that get requsts and return responses
 
 ## How to install
 
-1. Download folder with application from repository or clone repository to your computer ( branch is "complite-crud-api")
+1. Download folder with application from repository or clone repository to your computer ( branch is "complete-crud-api")
 2. Open the folder in yout IDE
 3. In command line run command "npm install" to install all dependencies.
 4. The application is ready to run
