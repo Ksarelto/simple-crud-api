@@ -62,7 +62,7 @@ const deleteMethod = async (req, res, query) => {
         sendMessage(res, errorCodes.notFound, errorMessages.notExist);
         return;
     }
-    sendMessage(res, errorCodes.successCode, result);
+    sendMessage(res, errorCodes.successCodeDelete, result);
 }
 
 module.exports = {
