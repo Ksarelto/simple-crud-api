@@ -4,10 +4,20 @@ It is an application, that create a server that get requsts and return responses
 
 ## How to install
 
-1. Download folder with application from repository or clone repository to your computer ( branch is "develop-crud-api")
-2. Open the folder in yout IDE
+If you download folder from GIT
+
+1. Download folder with application from repository branch "develop-crud-api";
+2. Open the folder in yout IDE.
 3. In command line run command "npm install" to install all dependencies.
-4. Create .env file and add variable "PORT=3000"
+4. Create .env file in downloaded folder and add variable "PORT=3000"
+5. The application is ready to run
+
+If you clone repository
+
+1. Open your IDE and run in terminal "git clone 'link to copied git repository'"
+2. Run in terminal command "git checkout develop-crud-api"
+3. In command line run command "npm install" to install all dependencies.
+4. Create .env file in downloaded folder and add variable "PORT=3000"
 5. The application is ready to run
 
 ## How to run application
@@ -16,7 +26,7 @@ There are some modes of work.
 
 1. If you want to run application in development mode you need to entre in command line "npm run start:dev".
 2. If you want to run application in production mode you need to entre in command line "npm run start:prod".
-3. application is ready for work.
+3. Created server is ready for work.
 
 ## How to work with server
 
