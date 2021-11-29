@@ -12,6 +12,7 @@ const errorCodes = {
     invalidId: 400,
     internalError: 500,
     successCode: 200,
+    successCodeDelete: 204,
     successCreatePerson: 201
   }
   

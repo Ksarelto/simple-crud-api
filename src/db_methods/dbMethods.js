@@ -15,12 +15,13 @@ const postItem = (data) => {
    return new Promise((resolve, reject) => {
     const dbJSON = db;
     const id = uuidv4();
-    dbJSON.person.push({...data, id});
+    const newPerson = {...data, id};
+    dbJSON.person.push(newPerson);
     fs.writeFile('./db.json', JSON.stringify(dbJSON), (err) => {
         if(err) {
             reject(err);
         } else {
-            resolve([data]);
+            resolve([newPerson]);
         }
     });
    })
@@ -30,10 +31,12 @@ const putItem = (id, data) => {
     return new Promise((resolve, reject) => {
         const dbJSON = db;
         const person = dbJSON.person.find((el) => el.id === id);
+        let changedPerson;
         if(!person) resolve(null);
         dbJSON.person = dbJSON.person.map((el) => {
             if(el.id === id){
                 el = {...data, id: el.id};
+                changedPerson = el;
             }
             return el;
         });
@@ -42,7 +45,7 @@ const putItem = (id, data) => {
             if(err) {
                reject(err);
             } else {
-                resolve([data]);
+                resolve([changedPerson]);
             }
         });
     });
