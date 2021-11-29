@@ -14,7 +14,7 @@ If you download folder from GIT
 
 If you clone repository
 
-1. Open your IDE and run in terminal "git clone 'link to copied git repository'"
+1. Open your IDE and run in terminal "git clone https://github.com/Ksarelto/simple-crud-api.git"
 2. Run in terminal command "git checkout develop-crud-api"
 3. In command line run command "npm install" to install all dependencies.
 4. Create .env file in downloaded folder and add variable "PORT=3000"
