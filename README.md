@@ -4,10 +4,21 @@ It is an application, that create a server that get requsts and return responses
 
 ## How to install
 
-1. Download folder with application from repository or clone repository to your computer ( branch is "complite-crud-api")
-2. Open the folder in yout IDE
+If you download folder from GIT
+
+1. Download folder with application from repository branch "complete-crud-api";
+2. Open the folder in yout IDE.
 3. In command line run command "npm install" to install all dependencies.
-4. The application is ready to run
+4. Create .env file in downloaded folder and add variable "PORT=3000"
+5. The application is ready to run
+
+If you clone repository
+
+1. Open your IDE and run in terminal "git clone https://github.com/Ksarelto/simple-crud-api.git"
+2. Run in terminal command "git checkout complete-crud-api"
+3. In command line run command "npm install" to install all dependencies.
+4. Create .env file in downloaded folder and add variable "PORT=3000"
+5. The application is ready to run
 
 ## How to run application
 
