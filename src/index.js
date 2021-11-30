@@ -8,34 +8,35 @@ const PORT = process.env.PORT;
 const MODE = process.env.NODE_ENV;
 
 const server = http.createServer((req, res) => {
-    const urlRest = checkUrl(req.url);
-    if(urlRest){
-        switch(req.method){
-            case 'GET':
-                getMethod(req,res,urlRest);
-                break;
-            case 'POST':
-                postMethod(req, res, urlRest);
-                break;
-            case 'PUT':
-                putMethod(req, res, urlRest);
-                break;
-            case 'DELETE':
-                deleteMethod(req, res, urlRest);
-                break;
-            default:
-                res.writeHead(errorCodes.internalError, { 'Content-Type': 'text/plain'});
-                res.end(errorMessages.notSupported);
+    try{
+        const urlRest = checkUrl(req.url);
+        if(urlRest){
+            switch(req.method){
+                case 'GET':
+                    getMethod(req,res,urlRest);
+                    break;
+                case 'POST':
+                    postMethod(req, res, urlRest);
+                    break;
+                case 'PUT':
+                    putMethod(req, res, urlRest);
+                    break;
+                case 'DELETE':
+                    deleteMethod(req, res, urlRest);
+                    break;
+                default:
+                    res.writeHead(errorCodes.internalError, { 'Content-Type': 'text/plain'});
+                    res.end(errorMessages.notSupported);
+            }
+        } else {
+            res.writeHead(errorCodes.notFound, { 'Content-Type': 'text/html'});
+            res.end(errorMessages.notFound);
         }
-    } else {
-        res.writeHead(errorCodes.notFound, { 'Content-Type': 'text/html'});
-        res.end(errorMessages.notFound);
-    }
-
-    req.on('error', () => {
+    } catch(err) {
         res.writeHead(errorCodes.internalError, { 'Content-Type': 'text/html'});
         res.end(errorMessages.internError);
-    });
+    }
+
 });
 
 server.on('error', (e) => {
