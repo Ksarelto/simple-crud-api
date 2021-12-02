@@ -26,7 +26,7 @@ describe('success scenario requests', function() {
   test('should create new person', async () => {
     const response = await request(server).post('/person').send(newPerson);
     const createdPerson = JSON.parse(response.text)[0];
-    expect(createdPerson).toEqual(newPerson);
+    expect({...createdPerson, id: null}).toEqual({...newPerson, id: null});
     expect(response.status).toBe(201);
   });
   test('should get created person', async () => {
@@ -40,15 +40,12 @@ describe('success scenario requests', function() {
     const id = db.person[0].id;
     const response = await request(server).put(`/person/${id}`).send(changedPerson);
     const returnedPerson = JSON.parse(response.text)[0];
-    expect(returnedPerson).toEqual(changedPerson);
+    expect({...returnedPerson, id: null}).toEqual({...changedPerson, id: null});
     expect(response.status).toBe(200);
   });
   test('should check that person is deleted', async () => {
     const id = db.person[0].id;
-    const beforeDeletingPerson = db.person[0];
     const response = await request(server).delete(`/person/${id}`);
-    const deletedPerson = JSON.parse(response.text)[0];
-    expect(deletedPerson).toEqual(beforeDeletingPerson);
     expect(response.status).toBe(204);
     const afterDeletResponse = await request(server).get(`/person/${id}`);
     expect(JSON.parse(afterDeletResponse.text)).toBe('Person with such id is not exist');
