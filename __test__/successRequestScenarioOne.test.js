@@ -51,7 +51,7 @@ describe('success scenarios os requests two', () => {
   test('should delete the last person', async () => {
     const id = db.person[2].id;
     const response = await request(server).delete(`/person/${id}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   })
   test('should get persons without deleted', async () => {
     const response = await request(server).get(`/person`);

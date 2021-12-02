@@ -49,7 +49,7 @@ describe('success scenario requests', function() {
     const response = await request(server).delete(`/person/${id}`);
     const deletedPerson = JSON.parse(response.text)[0];
     expect(deletedPerson).toEqual(beforeDeletingPerson);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
     const afterDeletResponse = await request(server).get(`/person/${id}`);
     expect(JSON.parse(afterDeletResponse.text)).toBe('Person with such id is not exist');
     expect(afterDeletResponse.status).toBe(404);

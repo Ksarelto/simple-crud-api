@@ -48,9 +48,9 @@ describe('success scenarios', function() {
     const idFirstPerson = db.person[0].id;
     const idSecondPerson = db.person[2].id;
     const deleteFirstPerson = await request(server).delete(`/person/${idFirstPerson}`);
-    expect(deleteFirstPerson.status).toBe(200);
+    expect(deleteFirstPerson.status).toBe(204);
     const deleteSecondPerson = await request(server).delete(`/person/${idSecondPerson}`);
-    expect(deleteSecondPerson.status).toBe(200);
+    expect(deleteSecondPerson.status).toBe(204);
     const response = await request(server).get(`/person`);
     expect(JSON.parse(response.text).length).toBe(2);
     expect(response.status).toBe(200);
