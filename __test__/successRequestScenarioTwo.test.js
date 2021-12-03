@@ -1,0 +1,54 @@
+const request = require('supertest');
+const { server } = require('../src/index.js');
+const db = require('../db.json');
+
+const newPerson = {
+  name: 'Peter',
+  age: 24,
+  hobbies: ['Run', 'Ride', 'Jump']
+}
+
+const changedPerson = {
+  name: 'Andrew',
+  age: 33,
+  hobbies: []
+}
+
+describe('success scenario requests', function() {
+  beforeAll(() => {
+    db.person = [];
+  })
+  test('should get empty array', async () => {
+    const response = await request(server).get('/person');
+    expect(JSON.parse(response.text)).toEqual(db.person);
+    expect(response.status).toBe(200);
+  });
+  test('should create new person', async () => {
+    const response = await request(server).post('/person').send(newPerson);
+    const createdPerson = JSON.parse(response.text)[0];
+    expect({...createdPerson, id: null}).toEqual({...newPerson, id: null});
+    expect(response.status).toBe(201);
+  });
+  test('should get created person', async () => {
+    const id = db.person[0].id;
+    const response = await request(server).get(`/person/${id}`);
+    const returnedPerson = JSON.parse(response.text)[0];
+    expect(returnedPerson).toEqual(db.person[0]);
+    expect(response.status).toBe(200);
+  });
+  test('should change created person', async () => {
+    const id = db.person[0].id;
+    const response = await request(server).put(`/person/${id}`).send(changedPerson);
+    const returnedPerson = JSON.parse(response.text)[0];
+    expect({...returnedPerson, id: null}).toEqual({...changedPerson, id: null});
+    expect(response.status).toBe(200);
+  });
+  test('should check that person is deleted', async () => {
+    const id = db.person[0].id;
+    const response = await request(server).delete(`/person/${id}`);
+    expect(response.status).toBe(204);
+    const afterDeletResponse = await request(server).get(`/person/${id}`);
+    expect(JSON.parse(afterDeletResponse.text)).toBe('Person with such id is not exist');
+    expect(afterDeletResponse.status).toBe(404);
+  });
+});
